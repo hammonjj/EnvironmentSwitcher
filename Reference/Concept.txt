@@ -1,0 +1,47 @@
+=============================================================================== 
+Environment Switcher
+===============================================================================
+General
+-------------------------------------------------------------------------------
+ - Add "-D" and "-R" to the EOF folder so regular installations work
+ - Push build files; tree view with tiered check boxes by folder and build
+ - Change service locations as well as turn on/off/restart: proxy, session manager, ad agent.
+
+-------------------------------------------------------------------------------
+RegistryKeys:
+-------------------------------------------------------------------------------
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura]
+"logHost"="hammond.avhq.local"
+"Path"="C:\Program Files\EOF"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura\Agents]
+"SessionManager"="LOCALHOST"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura\Datastore]
+"sqlDatabase"="EOFDB"
+"ConnectionStr"="DRIVER=SQL Server Native Client 10.0;SERVER=mssql-jh1.dev.local;DATABASE=AVSVR-JH1;TRUSTED_CONNECTION=Yes"
+"ADServer"="dev"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura\SessionManager]
+"port"="9998"
+
+-------------------------------------------------------------------------------
+Services:
+-------------------------------------------------------------------------------
+Aventura Active Directory Agent
+Aventura Session Manager
+Aventura Session Manager Proxy
+
+Change location of service executables
+Stop/Start/Restart service
+
+-------------------------------------------------------------------------------
+Push Build:
+-------------------------------------------------------------------------------
+EOF_Contents_Merge.txt
+
+Workflow:
+1) Kill open applications
+2) Kill services
+3) Move files
+4) Restart services
