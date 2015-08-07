@@ -3,13 +3,11 @@ Environment Switcher
 ===============================================================================
 General
 -------------------------------------------------------------------------------
- - Add "-D" and "-R" to the EOF folder so regular installations work
- - Push build files; tree view with tiered check boxes by folder and build
- - Change service locations as well as turn on/off/restart: proxy, session manager, ad agent.
- - Change "active build"
-
+ - Manually set registry keys
+ - Set which build is currently active
+ 
 -------------------------------------------------------------------------------
-RegistryKeys:
+Registry Keys:
 -------------------------------------------------------------------------------
 [HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura]
 "logHost"="hammond.avhq.local"
@@ -29,20 +27,37 @@ RegistryKeys:
 -------------------------------------------------------------------------------
 Services:
 -------------------------------------------------------------------------------
-Aventura Active Directory Agent
-Aventura Session Manager
-Aventura Session Manager Proxy
+sc config <service name> binPath= <binary path>
 
-Change location of service executables
-Stop/Start/Restart service
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services[ServiceName]\ImagePath		=> Required
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services[ServiceName]\DisplayName	=> Optional
+HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services[ServiceName]\Description	=> Optional
+
+AD Agent 		=> AVADAgent, ADAgent\ADAgent.exe
+Session Manager => AVSM, SessionManager\TISessionManager.exe
+Proxy Service 	=> AVSMProxySvc, AVSMProxySvc\AVSMProxySvc.exe
 
 -------------------------------------------------------------------------------
-Push Build:
+Set Active Build:
 -------------------------------------------------------------------------------
-EOF_Contents_Merge.txt
-
 Workflow:
-1) Kill open applications
-2) Kill services
-3) Move files
-4) Restart services
+1) Change registry key(s)
+	HKEY_LOCAL_MACHINE\SOFTWARE\Wow6432Node\Aventura\Path
+	Traditional Install: C:\Program Files\EOF
+	Freeform Entry: ""
+	
+	* Add history dropdown
+2) Kill services if they exist
+3) Change file location of services if they exist
+4) Restart services if they exist
+
+-------------------------------------------------------------------------------
+Push Build Script:
+-------------------------------------------------------------------------------
+PushBuildFiles [SourcePath] [DestinationFolder] [Configuration] [Platform]
+
+Visual Studio Rule Examples: 
+$(SolutionDir)..\PushBuildFiles.bat $(TargetPath) AVCT $(ConfigurationName) $(PlatformName)
+$(SolutionDir)..\PushBuildFiles.bat $(TargetPath) Shared\x64 $(ConfigurationName) $(PlatformName)
+
+EOF_Contents_Merge.txt

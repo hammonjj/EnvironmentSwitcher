@@ -1,10 +1,35 @@
 ﻿<Window x:Class="EnvironmentSwitcher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Environment Switcher" Height="350" Width="525" Closing="WindowClosing">
     <Grid>
+        <!-- 
+            <GroupBox Header="Active Build">
+            </GroupBox>
+            <GroupBox Header="Registry Keys">
+            </GroupBox>
+        "-->
         <TabControl>
-            <TabItem Header="General">
+            <TabItem Header="Active Build">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Row="0">Active Build:</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="TxtActiveBuild" Width="300"></TextBox>
+                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" MinWidth="60" Name="BtnChangeBuild">Apply</Button>
+                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnRevertBuild">Revert</Button>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Registry Keys">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"></RowDefinition>
@@ -41,11 +66,9 @@
                     <Label Grid.Row="5" Grid.Column="0">Session Manager Port:</Label>
                     <TextBox Grid.Row="5" Grid.Column="1" Name="TxtBoxSessionManagerPort" Width="300"></TextBox>
 
-                    <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" MinWidth="60" Name="ApplyRegistryKeys">Apply</Button>
+                    <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplyRegistryKeys">Apply</Button>
                 </Grid>
             </TabItem>
-            <TabItem Header="Build Files" />
-            <TabItem Header="Details" />
         </TabControl>
     </Grid>
 </Window>
