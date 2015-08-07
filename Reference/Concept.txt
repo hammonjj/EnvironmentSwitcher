@@ -6,6 +6,7 @@ General
  - Add "-D" and "-R" to the EOF folder so regular installations work
  - Push build files; tree view with tiered check boxes by folder and build
  - Change service locations as well as turn on/off/restart: proxy, session manager, ad agent.
+ - Change "active build"
 
 -------------------------------------------------------------------------------
 RegistryKeys:
