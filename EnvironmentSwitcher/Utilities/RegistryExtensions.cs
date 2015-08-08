@@ -1,6 +1,6 @@
 ﻿using Microsoft.Win32;
 
-namespace UPDLog.Utilities
+namespace EnvironmentSwitcher.Utilities
 {
     public static class RegistryExtensions
     {

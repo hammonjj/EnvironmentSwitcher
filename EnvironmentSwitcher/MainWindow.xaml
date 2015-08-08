@@ -25,7 +25,7 @@
 
                     <Label Grid.Row="0">Active Build:</Label>
                     <TextBox Grid.Row="0" Grid.Column="1" Name="TxtActiveBuild" Width="300"></TextBox>
-                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" MinWidth="60" Name="BtnChangeBuild">Apply</Button>
+                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" MinWidth="60" Name="BtnChangeBuild" Click="ApplyActiveBuildClicked">Apply</Button>
                     <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnRevertBuild">Revert</Button>
                 </Grid>
             </TabItem>
