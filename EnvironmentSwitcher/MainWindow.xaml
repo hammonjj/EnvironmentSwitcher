@@ -1,74 +1,124 @@
 ﻿<Window x:Class="EnvironmentSwitcher.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Environment Switcher" Height="350" Width="525" Closing="WindowClosing">
+        Title="Aventura Control Panel" Height="450" Width="450" Closing="WindowClosing" Icon="aventura_icon.ico" Topmost="True">
     <Grid>
-        <!-- 
-            <GroupBox Header="Active Build">
-            </GroupBox>
-            <GroupBox Header="Registry Keys">
-            </GroupBox>
-        "-->
-        <TabControl>
-            <TabItem Header="Active Build">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        
+        <GroupBox Header="Active Build">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="200"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="0">Active Build:</Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" Name="TxtActiveBuild" Width="300"></TextBox>
-                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Left" MinWidth="60" Name="BtnChangeBuild" Click="ApplyActiveBuildClicked">Apply</Button>
-                    <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnRevertBuild">Revert</Button>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Registry Keys">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="Auto"></RowDefinition>
-                        <RowDefinition Height="*"></RowDefinition>
-                    </Grid.RowDefinitions>
+                <Label Grid.Row="0">Path:</Label>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="TxtActiveBuild" Width="300"></TextBox>
+                <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnChangeBuild" 
+                        Click="ApplyActiveBuildClicked">Change</Button>
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Row="1" Header="Services">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="Auto"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    
-                    <Label Grid.Row="0">Log Host:</Label>
-                    <TextBox Grid.Row="0" Grid.Column="1" Name="TxtBoxLogHost" Width="300"></TextBox>
-                    
-                    <Label Grid.Row="1" Grid.Column="0">Path:</Label>
-                    <TextBox Grid.Row="1" Grid.Column="1" Name="TxtBoxPath" Width="300"></TextBox>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                
+                <Label Grid.Row="0" Grid.Column="0">SMProxy:</Label>
+                <Button Grid.Row="0" Grid.Column="1" MinWidth="60" Name="BtnStartSmProxy">Start</Button>
+                <Button Grid.Row="0" Grid.Column="2" MinWidth="60" Name="BtnStopSmProxy">Stop</Button>
+                
+                <Label Grid.Row="1" Grid.Column="0">AD Agent:</Label>
+                <Button Grid.Row="1" Grid.Column="1" MinWidth="60" Name="BtnStartAdAgent">Start</Button>
+                <Button Grid.Row="1" Grid.Column="2" MinWidth="60" Name="BtnStopAdAgent">Stop</Button>
+                
+                <Label Grid.Row="2" Grid.Column="0">Session Manager:</Label>
+                <Button Grid.Row="2" Grid.Column="1" MinWidth="60" Name="BtnStartSessionManager">Start</Button>
+                <Button Grid.Row="2" Grid.Column="2" MinWidth="60" Name="BtnStopSessionManager">Stop</Button>
+                
+            </Grid>
+        </GroupBox>
+        
+        <GroupBox Grid.Row="2" Header="Registry Keys">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                    <Label Grid.Row="2" Grid.Column="0">Session Manager Address:</Label>
-                    <TextBox Grid.Row="2" Grid.Column="1" Name="TxtBoxSessionManagerAddress" Width="300"></TextBox>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
 
-                    <Label Grid.Row="3" Grid.Column="0">SQL Database:</Label>
-                    <TextBox Grid.Row="3" Grid.Column="1" Name="TxtBoxSqlDatabase" Width="300"></TextBox>
+                <!-- Click="ApplyRegistryKeysClicked" -->
+                <Label Grid.Row="0" Grid.Column="0">Log Host:</Label>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="TxtBoxLogHost"></TextBox>
+                <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplyLogHost">Apply</Button>
+                
+                <Label Grid.Row="1" Grid.Column="0">Session Manager Address:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="TxtBoxSessionManagerAddress"></TextBox>
+                <Button Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplySessionManagerAddress">Apply</Button>
+                
+                <Label Grid.Row="2" Grid.Column="0">SQL Database:</Label>
+                <TextBox Grid.Row="2" Grid.Column="1" Name="TxtBoxSqlDatabase"></TextBox>
+                <Button Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplySqlDatabase">Apply</Button>
+                
+                <Label Grid.Row="3" Grid.Column="0">Connection String:</Label>
+                <TextBox Grid.Row="3" Grid.Column="1" Name="TxtBoxConnectionString"></TextBox>
+                <Button Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplyConnectionString">Apply</Button>
 
-                    <Label Grid.Row="4" Grid.Column="0">Connection String:</Label>
-                    <TextBox Grid.Row="4" Grid.Column="1" Name="TxtBoxConnectionString" Width="300"></TextBox>
+                <Label Grid.Row="4" Grid.Column="0">Session Manager Port:</Label>
+                <TextBox Grid.Row="4" Grid.Column="1" Name="TxtBoxSessionManagerPort"></TextBox>
+                <Button Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplySessionManagerPort">Apply</Button>
 
-                    <Label Grid.Row="5" Grid.Column="0">Session Manager Port:</Label>
-                    <TextBox Grid.Row="5" Grid.Column="1" Name="TxtBoxSessionManagerPort" Width="300"></TextBox>
+            </Grid>
+        </GroupBox>
 
-                    <Button Grid.Row="6" Grid.Column="1" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplyRegistryKeys">Apply</Button>
-                </Grid>
-            </TabItem>
-        </TabControl>
+        <GroupBox Grid.Row="3" Header="Applications">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0">Control Tower:</Label>
+                <Label Grid.Row="1" Grid.Column="0">Dynamic Desktop:</Label>
+            </Grid>
+        </GroupBox>
+
     </Grid>
 </Window>

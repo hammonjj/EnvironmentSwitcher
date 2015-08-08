@@ -23,28 +23,31 @@ namespace EnvironmentSwitcher
             InitializeComponent();
 
             _wow6432RegistryKey = Registry.LocalMachine.GetOrCreateRegistryKey(
-                @"Software\Wow6432Node\Aventura", false);
+                @"Software\Wow6432Node\Aventura", true);
 
-            LoadActiveBuild();
             LoadRegistryKeys();
-        }
-
-        private void LoadActiveBuild()
-        {
-            var activePathKey = _wow6432RegistryKey.GetValue("Path");
-
-            if (activePathKey == null) { return; }
-            TxtActiveBuild.Text = Convert.ToString(activePathKey);
         }
 
         private void LoadRegistryKeys()
         {
-            TxtBoxPath.Text = "";
-            TxtBoxLogHost.Text = "";
-            TxtBoxSqlDatabase.Text = "";
-            TxtBoxConnectionString.Text = "";
-            TxtBoxSessionManagerPort.Text = "";
-            TxtBoxSessionManagerAddress.Text = "";
+            TxtActiveBuild.Text = _wow6432RegistryKey.GetValueAsString("Path");
+            TxtBoxLogHost.Text = _wow6432RegistryKey.GetValueAsString("logHost");
+
+            using (var datastoreKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Datastore", false))
+            {
+                TxtBoxSqlDatabase.Text = datastoreKey.GetValueAsString("sqlDatabase");
+                TxtBoxConnectionString.Text = datastoreKey.GetValueAsString("ConnectionStr");
+            }
+
+            using (var sessionManagerKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"SessionManager", false))
+            {
+                TxtBoxSessionManagerPort.Text = sessionManagerKey.GetValueAsString("port");
+            }
+
+            using (var agentsKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Agents", false))
+            {
+                TxtBoxSessionManagerAddress.Text = agentsKey.GetValueAsString("SessionManager");
+            }
         }
 
         private void ApplyActiveBuildClicked(object sender, RoutedEventArgs e)
@@ -95,6 +98,27 @@ namespace EnvironmentSwitcher
                     "Error",
                     MessageBoxButton.OK,
                     MessageBoxImage.Error);
+            }
+        }
+
+        private void ApplyRegistryKeysClicked(object sender, RoutedEventArgs e)
+        {
+            _wow6432RegistryKey.SetValue("logHost", TxtBoxLogHost.Text);
+
+            using (var datastoreKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Datastore", true))
+            {
+                datastoreKey.SetValue("sqlDatabase", TxtBoxSqlDatabase.Text);
+                datastoreKey.SetValue("ConnectionStr", TxtBoxConnectionString.Text);
+            }
+
+            using (var sessionManagerKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"SessionManager", true))
+            {
+                sessionManagerKey.SetValue("port", TxtBoxSessionManagerPort.Text);
+            }
+
+            using (var agentsKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Agents", true))
+            {
+                agentsKey.SetValue("SessionManager", TxtBoxSessionManagerAddress.Text);
             }
         }
 
