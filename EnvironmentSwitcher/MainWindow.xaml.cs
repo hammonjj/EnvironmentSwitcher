@@ -72,7 +72,51 @@ namespace EnvironmentSwitcher
             EditServiceLocation(SmProxyServiceName, TxtActiveBuild.Text + @"AVSMProxySvc\AVSMProxySvc.exe");
             EditServiceLocation(SessionManagerServiceName, TxtActiveBuild.Text + @"SessionManager\TISessionManager.exe");
 
-            //Save path for future switches
+            //TODO: Save path for future switches
+        }
+
+        private void StartServiceClicked(object sender, RoutedEventArgs e)
+        {
+            var serviceName = PropertyExtensions.GetService((UIElement)sender);
+            if (!ServiceUtilities.IsServiceInstalled(serviceName)) { return; }
+
+            try
+            {
+                using (new WaitCursor())
+                {
+                    ServiceUtilities.StartService(serviceName, 10000);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(
+                    "Error starting " + serviceName + "service: " + ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
+        }
+
+        private void StopServiceClicked(object sender, RoutedEventArgs e)
+        {
+            var serviceName = PropertyExtensions.GetService((UIElement)sender);
+            if (!ServiceUtilities.IsServiceInstalled(serviceName)) { return; }
+
+            try
+            {
+                using (new WaitCursor())
+                {
+                    ServiceUtilities.StopService(serviceName, 10000);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(
+                    "Error stopping " + serviceName + "service: " + ex.Message,
+                    "Error",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error);
+            }
         }
 
         private static void EditServiceLocation(string serviceName, string newLocation)
@@ -103,22 +147,48 @@ namespace EnvironmentSwitcher
 
         private void ApplyRegistryKeysClicked(object sender, RoutedEventArgs e)
         {
-            _wow6432RegistryKey.SetValue("logHost", TxtBoxLogHost.Text);
-
-            using (var datastoreKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Datastore", true))
+            var registryKey = PropertyExtensions.GetRegistryKey((UIElement)sender);
+            switch(registryKey)
             {
-                datastoreKey.SetValue("sqlDatabase", TxtBoxSqlDatabase.Text);
-                datastoreKey.SetValue("ConnectionStr", TxtBoxConnectionString.Text);
-            }
+                case "LogHost":
+                    _wow6432RegistryKey.SetValue("logHost", TxtBoxLogHost.Text);
+                    break;
 
-            using (var sessionManagerKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"SessionManager", true))
-            {
-                sessionManagerKey.SetValue("port", TxtBoxSessionManagerPort.Text);
-            }
+                case "SessionManagerAddress":
+                    using(var agentsKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Agents", true))
+                    {
+                        agentsKey.SetValue("SessionManager", TxtBoxSessionManagerAddress.Text);
+                    }
+                    break;
 
-            using (var agentsKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Agents", true))
-            {
-                agentsKey.SetValue("SessionManager", TxtBoxSessionManagerAddress.Text);
+                case "SQLDatabase":
+                    using(var datastoreKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Datastore", true))
+                    {
+                        datastoreKey.SetValue("sqlDatabase", TxtBoxSqlDatabase.Text);
+                    }
+                    break;
+
+                case "ConnectionString":
+                    using (var datastoreKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"Datastore", true))
+                    {
+                        datastoreKey.SetValue("ConnectionStr", TxtBoxConnectionString.Text);
+                    }
+                    break;
+
+                case "SessionManagerPort":
+                    using(var sessionManagerKey = _wow6432RegistryKey.GetOrCreateRegistryKey(@"SessionManager", true))
+                    {
+                        sessionManagerKey.SetValue("port", TxtBoxSessionManagerPort.Text);
+                    }
+                    break;
+
+                default:
+                    MessageBox.Show(
+                        "Unknown registry key: " + registryKey,
+                        "Error",
+                        MessageBoxButton.OK,
+                        MessageBoxImage.Error);
+                    break;
             }
         }
 

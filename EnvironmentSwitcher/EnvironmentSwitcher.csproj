@@ -60,8 +60,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Utilities\PropertyExtensions.cs" />
     <Compile Include="Utilities\RegistryExtensions.cs" />
     <Compile Include="Utilities\ServiceUtilities.cs" />
+    <Compile Include="Utilities\WaitCursor.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
