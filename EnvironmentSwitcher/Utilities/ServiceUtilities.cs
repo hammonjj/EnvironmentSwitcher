@@ -6,28 +6,35 @@ namespace EnvironmentSwitcher.Utilities
 {
     class ServiceUtilities
     {
-        public static bool IsServiceInstalled(string serviceName)
+        public static bool IsServiceInstalled(string serviceName, string server = "")
         {
-            var services = ServiceController.GetServices();
+            var services = string.IsNullOrEmpty(server) ? 
+                ServiceController.GetServices() : 
+                ServiceController.GetServices(server);
+            
             return services.Any(service => service.ServiceName == serviceName);
         }
 
-        public static void StartService(string serviceName, int timeoutMilliseconds)
+        public static void StartService(string serviceName, int timeoutMilliseconds, string server = "")
         {
-            var service = new ServiceController(serviceName);
-            var timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
-
+            var service = string.IsNullOrEmpty(server) ? 
+                new ServiceController(serviceName) : 
+                new ServiceController(serviceName, server);
+            
             service.Start();
-            service.WaitForStatus(ServiceControllerStatus.Running, timeout);
+            service.WaitForStatus(
+                ServiceControllerStatus.Running, TimeSpan.FromMilliseconds(timeoutMilliseconds));
         }
 
-        public static void StopService(string serviceName, int timeoutMilliseconds)
+        public static void StopService(string serviceName, int timeoutMilliseconds, string server = "")
         {
-            var service = new ServiceController(serviceName);
-            var timeout = TimeSpan.FromMilliseconds(timeoutMilliseconds);
-
+            var service = string.IsNullOrEmpty(server) ? 
+                new ServiceController(serviceName) : 
+                new ServiceController(serviceName, server);
+            
             service.Stop();
-            service.WaitForStatus(ServiceControllerStatus.Stopped, timeout);
+            service.WaitForStatus(
+                ServiceControllerStatus.Stopped, TimeSpan.FromMilliseconds(timeoutMilliseconds));
         }
     }
 }

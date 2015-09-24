@@ -25,7 +25,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0">Path:</Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="TxtActiveBuild" Width="300"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="TxtActiveBuild" VerticalContentAlignment="Center"></TextBox>
                 <Button Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnChangeBuild" 
                         Click="ApplyActiveBuildClicked">Change</Button>
             </Grid>
@@ -44,6 +44,7 @@
                     <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 
@@ -52,18 +53,21 @@
                     Grid.Row="0" Grid.Column="1" MinWidth="60" Name="BtnStartSmProxy">Start</Button>
                 <Button utilities:PropertyExtensions.Service="SMProxy" Click="StopServiceClicked"
                     Grid.Row="0" Grid.Column="2" MinWidth="60" Name="BtnStopSmProxy">Stop</Button>
+                <TextBox Grid.Row="0" Grid.Column="3" Name="TxtSmProxyServer" VerticalContentAlignment="Center" IsEnabled="False"></TextBox>
                 
                 <Label Grid.Row="1" Grid.Column="0">AD Agent:</Label>
                 <Button utilities:PropertyExtensions.Service="ADAgent" Click="StartServiceClicked"
                     Grid.Row="1" Grid.Column="1" MinWidth="60" Name="BtnStartAdAgent">Start</Button>
                 <Button utilities:PropertyExtensions.Service="ADAgent" Click="StopServiceClicked"
                     Grid.Row="1" Grid.Column="2" MinWidth="60" Name="BtnStopAdAgent">Stop</Button>
+                <TextBox Grid.Row="1" Grid.Column="3" Name="TxtAdAgentServer" VerticalContentAlignment="Center" IsEnabled="False"></TextBox>
                 
                 <Label Grid.Row="2" Grid.Column="0">Session Manager:</Label>
                 <Button utilities:PropertyExtensions.Service="SessionManager" Click="StartServiceClicked"
                     Grid.Row="2" Grid.Column="1" MinWidth="60" Name="BtnStartSessionManager">Start</Button>
                 <Button utilities:PropertyExtensions.Service="SessionManager" Click="StopServiceClicked"
                     Grid.Row="2" Grid.Column="2" MinWidth="60" Name="BtnStopSessionManager">Stop</Button>
+                <TextBox Grid.Row="2" Grid.Column="3" Name="TxtSessionManagerServer" VerticalContentAlignment="Center" IsEnabled="False"></TextBox>
                 
             </Grid>
         </GroupBox>
@@ -110,27 +114,27 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0">Log Host:</Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Name="TxtBoxLogHost"></TextBox>
+                <TextBox Grid.Row="0" Grid.Column="1" Name="TxtBoxLogHost" VerticalContentAlignment="Center"></TextBox>
                 <Button utilities:PropertyExtensions.RegistryKey="LogHost" Click="ApplyRegistryKeysClicked"
                         Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplyLogHost">Apply</Button>
                 
                 <Label Grid.Row="1" Grid.Column="0">Session Manager Address:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" Name="TxtBoxSessionManagerAddress"></TextBox>
+                <TextBox Grid.Row="1" Grid.Column="1" Name="TxtBoxSessionManagerAddress" VerticalContentAlignment="Center"></TextBox>
                 <Button utilities:PropertyExtensions.RegistryKey="SessionManagerAddress" Click="ApplyRegistryKeysClicked"
                     Grid.Row="1" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplySessionManagerAddress">Apply</Button>
                 
                 <Label Grid.Row="2" Grid.Column="0">SQL Database:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Name="TxtBoxSqlDatabase"></TextBox>
+                <TextBox Grid.Row="2" Grid.Column="1" Name="TxtBoxSqlDatabase" VerticalContentAlignment="Center"></TextBox>
                 <Button utilities:PropertyExtensions.RegistryKey="SQLDatabase" Click="ApplyRegistryKeysClicked"
                     Grid.Row="2" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplySqlDatabase">Apply</Button>
                 
                 <Label Grid.Row="3" Grid.Column="0">Connection String:</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" Name="TxtBoxConnectionString"></TextBox>
+                <TextBox Grid.Row="3" Grid.Column="1" Name="TxtBoxConnectionString" VerticalContentAlignment="Center"></TextBox>
                 <Button utilities:PropertyExtensions.RegistryKey="ConnectionString" Click="ApplyRegistryKeysClicked"
                     Grid.Row="3" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplyConnectionString">Apply</Button>
 
                 <Label Grid.Row="4" Grid.Column="0">Session Manager Port:</Label>
-                <TextBox Grid.Row="4" Grid.Column="1" Name="TxtBoxSessionManagerPort"></TextBox>
+                <TextBox Grid.Row="4" Grid.Column="1" Name="TxtBoxSessionManagerPort" VerticalContentAlignment="Center"></TextBox>
                 <Button utilities:PropertyExtensions.RegistryKey="SessionManagerPort" Click="ApplyRegistryKeysClicked"
                     Grid.Row="4" Grid.Column="2" HorizontalAlignment="Right" MinWidth="60" Name="BtnApplySessionManagerPort">Apply</Button>
 
